@@ -1,0 +1,48 @@
+import configure from 'react-widgets/lib/configure';
+import formatWithOptions from 'date-fns/esm/fp/formatWithOptions'
+import parse from 'date-fns/esm/fp/parse'
+import addYears from 'date-fns/esm/fp/addYears'
+import * as locales from 'date-fns/esm/locale'
+import propOr from 'ramda/src/propOr'
+import pathOr from 'ramda/src/pathOr'
+
+const { enUS } = locales
+
+const endOfDecade = addYears(10)
+
+const endOfCentury = addYears(100)
+
+const getLocale = culture =>
+  propOr(enUS, culture, locales)
+
+const format = (date, pattern, culture) =>
+  formatWithOptions({ locale: getLocale(culture) }, patter, date)
+
+const getYear = (date, culture) =>
+  format(date, 'YYYY', culture)
+
+const decade = (date, culture, { format }) =>
+  `${getYear(date, culture)} - ${getYear(endOfDecade(date), culture)}`
+
+const century = (date, culture, { format }) =>
+  `${getYear(date, culture)} - ${getYear(endOfCentury(date), culture)}`
+
+const firstOfWeek = culture =>
+  pathOr(0, ['options', 'weekStartsOn'], getLocale(culture))
+
+export const defaultFormats = {
+  date: 'L',
+  time: 'LT',
+  default: 'lll',
+  header: 'MMMM YYYY',
+  footer: 'LL',
+  weekday: 'dd',
+  dayOfMonth: 'DD',
+  month: 'MMM',
+  year: 'YYYY',
+  decade,
+  century
+}
+
+export default (formats = defaultFormats) =>
+  configure.setDateLocalizer({ formats, firstOfWeek, parse, format })

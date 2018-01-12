@@ -1,0 +1,31 @@
+{
+  "name": "react-widgets-dates",
+  "version": "0.0.1",
+  "description": "A date-fns localizer for react-widgets",
+  "main": "./dist/react-widgets-dates.js",
+  "scripts": {
+    "prebuild": "rimraf ./dist",
+    "build": "webpack -p"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ecancino/react-widgets-dates.git"
+  },
+  "keywords": [
+    "react-widgets"
+  ],
+  "author": "Eduardo Cancino",
+  "license": "MIT",
+  "dependencies": {
+    "date-fns": "2.0.0-alpha.7",
+    "ramda": "0.25.0",
+    "react-widgets": "4.1.1"
+  },
+  "devDependencies": {
+    "babel-cli": "6.26.0",
+    "babel-loader": "7.1.2",
+    "babel-preset-env": "1.6.1",
+    "rimraf": "2.6.2",
+    "webpack": "3.10.0"
+  }
+}
