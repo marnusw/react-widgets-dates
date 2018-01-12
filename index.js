@@ -16,7 +16,7 @@ const getLocale = culture =>
   propOr(enUS, culture, locales)
 
 const format = (date, pattern, culture) =>
-  formatWithOptions({ locale: getLocale(culture) }, patter, date)
+  formatWithOptions({ locale: getLocale(culture) }, pattern, date)
 
 const getYear = (date, culture) =>
   format(date, 'YYYY', culture)

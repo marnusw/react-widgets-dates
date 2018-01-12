@@ -1,6 +1,6 @@
 {
   "name": "react-widgets-dates",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A date-fns localizer for react-widgets",
   "main": "./index.js",
   "repository": {
