@@ -1,4 +1,4 @@
-import configure from 'react-widgets/lib/configure';
+import configure from 'react-widgets/lib/configure'
 import formatWithOptions from 'date-fns/esm/fp/formatWithOptions'
 import parse from 'date-fns/esm/fp/parse'
 import addYears from 'date-fns/esm/fp/addYears'
@@ -12,23 +12,20 @@ const endOfDecade = addYears(10)
 
 const endOfCentury = addYears(100)
 
-const getLocale = culture =>
-  propOr(enUS, culture, locales)
+const getLocale = culture => propOr(enUS, culture, locales)
 
 const format = (date, pattern, culture) =>
   formatWithOptions({ locale: getLocale(culture) }, pattern, date)
 
-const getYear = (date, culture) =>
-  format(date, 'YYYY', culture)
+const getYear = (date, culture) => format(date, 'YYYY', culture)
 
-const decade = (date, culture, { format }) =>
+const decade = (date, culture) =>
   `${getYear(date, culture)} - ${getYear(endOfDecade(date), culture)}`
 
-const century = (date, culture, { format }) =>
+const century = (date, culture) =>
   `${getYear(date, culture)} - ${getYear(endOfCentury(date), culture)}`
 
-const firstOfWeek = culture =>
-  pathOr(0, ['options', 'weekStartsOn'], getLocale(culture))
+const firstOfWeek = culture => pathOr(0, ['options', 'weekStartsOn'], getLocale(culture))
 
 export const defaultFormats = {
   date: 'L',
