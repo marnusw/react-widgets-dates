@@ -1,13 +1,15 @@
 {
   "name": "react-widgets-dates",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "A date-fns localizer for react-widgets",
   "main": "./index.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ecancino/react-widgets-dates.git"
   },
-  "keywords": ["react-widgets"],
+  "keywords": [
+    "react-widgets"
+  ],
   "author": "Eduardo Cancino",
   "license": "MIT",
   "dependencies": {
@@ -16,10 +18,14 @@
     "react-widgets": "4.1.1"
   },
   "devDependencies": {
+    "doxdox": "2.0.3",
     "eslint": "4.15.0",
     "eslint-plugin-import": "2.8.0",
     "eslint-plugin-node": "5.2.1",
     "eslint-plugin-promise": "3.6.0",
     "eslint-plugin-standard": "3.0.1"
+  },
+  "scripts": {
+    "dox": "doxdox 'index.js' --layout markdown --output README.md"
   }
 }
