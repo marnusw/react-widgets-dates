@@ -23,7 +23,7 @@ function format (date, pattern, culture) {
 }
 
 function parse (date, pattern, culture) {
-  return parseWithOptions({ locale: getLocale(culture) }, pattern, date)
+  return parseWithOptions({ locale: getLocale(culture) }, new Date(), pattern, date)
 }
 
 function getYear (date, culture) {
@@ -56,6 +56,8 @@ var defaultFormats = {
   century: century
 }
 
+module.exports.defaultFormats = defaultFormats
+
 /**
  * Configures localization of [react-widgets](http://jquense.github.io/react-widgets/) by calling `configure.setDateLocalizer`
  * @static
@@ -78,8 +80,8 @@ var defaultFormats = {
  * dateFnsLocalizer(newFormats)
  * // => Uses new configuration
  */
-function dateFnsLocalizer () {
-  configure.setDateLocalizer({ formats: defaultFormats, firstOfWeek: firstOfWeek, parse: parse, format: format })
+function dateFnsLocalizer (formats) {
+  configure.setDateLocalizer({ formats: formats || defaultFormats, firstOfWeek: firstOfWeek, parse: parse, format: format })
 }
 
 module.exports = dateFnsLocalizer

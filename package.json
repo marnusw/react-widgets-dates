@@ -1,6 +1,6 @@
 {
   "name": "react-widgets-dates",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "A date-fns localizer for react-widgets",
   "main": "./index.js",
   "repository": {
@@ -24,7 +24,9 @@
     "eslint-plugin-import": "2.8.0",
     "eslint-plugin-node": "5.2.1",
     "eslint-plugin-promise": "3.6.0",
-    "eslint-plugin-standard": "3.0.1"
+    "eslint-plugin-standard": "3.0.1",
+    "react": "16.2.0",
+    "react-dom": "16.2.0"
   },
   "scripts": {
     "dox": "doxdox 'index.js' --layout markdown --output README.md"
