@@ -1,44 +1,59 @@
-import configure from 'react-widgets/lib/configure'
-import formatWithOptions from 'date-fns/esm/fp/formatWithOptions'
-import parse from 'date-fns/esm/fp/parse'
-import addYears from 'date-fns/esm/fp/addYears'
-import * as locales from 'date-fns/esm/locale'
-import propOr from 'ramda/src/propOr'
-import pathOr from 'ramda/src/pathOr'
+'use strict'
 
-const { enUS } = locales
+var configure = require('react-widgets/lib/configure')
+var formatWithOptions = require('date-fns/fp/formatWithOptions')
+var parseWithOptions = require('date-fns/fp/parseWithOptions')
+var addYears = require('date-fns/fp/addYears')
+var locales = require('date-fns/locale')
+var propOr = require('ramda/src/propOr')
+var pathOr = require('ramda/src/pathOr')
 
-const endOfDecade = addYears(10)
+var enUS = locales.enUS
 
-const endOfCentury = addYears(100)
+var endOfDecade = addYears(10)
 
-const getLocale = culture => propOr(enUS, culture, locales)
+var endOfCentury = addYears(100)
 
-const format = (date, pattern, culture) =>
-  formatWithOptions({ locale: getLocale(culture) }, pattern, date)
+function getLocale (culture) {
+  return propOr(enUS, culture, locales)
+}
 
-const getYear = (date, culture) => format(date, 'YYYY', culture)
+function format (date, pattern, culture) {
+  return formatWithOptions({ locale: getLocale(culture) }, pattern, date)
+}
 
-const decade = (date, culture) =>
-  `${getYear(date, culture)} - ${getYear(endOfDecade(date), culture)}`
+function parse (date, pattern, culture) {
+  return parseWithOptions({ locale: getLocale(culture) }, pattern, date)
+}
 
-const century = (date, culture) =>
-  `${getYear(date, culture)} - ${getYear(endOfCentury(date), culture)}`
+function getYear (date, culture) {
+  return format(date, 'YYYY', culture)
+}
 
-const firstOfWeek = culture => pathOr(0, ['options', 'weekStartsOn'], getLocale(culture))
+function decade (date, culture) {
+  return getYear(date, culture) + ' - ' + getYear(endOfDecade(date), culture)
+}
 
-export const defaultFormats = {
-  default: 'lll',
+function century (date, culture) {
+  return getYear(date, culture) + ' - ' + getYear(endOfCentury(date), culture)
+}
+
+function firstOfWeek (culture) {
+  return pathOr(0, ['options', 'weekStartsOn'], getLocale(culture))
+}
+
+var defaultFormats = {
   date: 'L',
   time: 'LT',
+  default: 'lll',
   header: 'MMMM YYYY',
   footer: 'LL',
   weekday: 'dd',
   dayOfMonth: 'DD',
   month: 'MMM',
   year: 'YYYY',
-  decade,
-  century
+  decade: decade,
+  century: century
 }
 
 /**
@@ -63,7 +78,8 @@ export const defaultFormats = {
  * dateFnsLocalizer(newFormats)
  * // => Uses new configuration
  */
-const dateFnsLocalizer = (formats = defaultFormats) =>
-  configure.setDateLocalizer({ formats, firstOfWeek, parse, format })
+function dateFnsLocalizer () {
+  configure.setDateLocalizer({ formats: defaultFormats, firstOfWeek: firstOfWeek, parse: parse, format: format })
+}
 
-export default dateFnsLocalizer
+module.exports = dateFnsLocalizer
